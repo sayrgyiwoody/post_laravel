@@ -1,0 +1,17 @@
+::-webkit-scrollbar {
+    width: 0;
+}
+
+.border-left {
+    border-left: 5px solid #41493B;
+}
+
+.overflow-y-scroll {
+    overflow-y: scroll;
+}
+
+
+
+.h-100vh {
+    height: 100vh;
+}
