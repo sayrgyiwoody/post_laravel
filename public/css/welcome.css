@@ -1,0 +1,189 @@
+/* for welcome page */
+
+
+.home {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 134, 244, 0.25)), url("https://raw.githubusercontent.com/Sayrgyiwoody/UCSY-Blog/master/UCSY.jpg");
+    background-size: cover;
+    height: 370px;
+    background-position:center;
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+}
+
+.left-text {
+    text-align: left;
+    font-family: 'Antonio', sans-serif;
+}
+
+.admin-button {
+    padding: 8px 30px;
+    font-size: 28px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ffffffb3;
+    backdrop-filter: blur(10px);
+}
+
+.admin-button:hover {
+    background-color: #ffffff63;
+}
+
+.footer {
+    background-color: #E8E8E8;
+    width: 100%;
+    height: auto;
+}
+
+.rectangle-box {
+    top: -70px;
+}
+
+.rectangle {
+    width: 244px;
+    height: 204px;
+    background-color: #41493B;
+    transition: .5s;
+    cursor: pointer;
+}
+
+.rectangle:hover {
+    background-color: #262626;
+}
+
+.border-top {
+    border-top: 2px solid #41493B;
+}
+
+.border-left {
+    border-left: 5px solid #41493B;
+}
+
+pt-0 {
+    padding-top: 0;
+}
+
+.rectangle-icon {
+    font-size: 100px;
+    color: #fff;
+}
+
+/*--------Navba----------*/
+nav {
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    color: #41493B;
+    background-color: rgba(164, 190, 181, 0.7) ;
+}
+
+.logo {
+    width: 40px;
+}
+
+nav ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 10px 20px;
+}
+
+nav ul li a {
+    color: #41493B;
+    text-decoration: none;
+    font-size: 18px;
+    position: relative;
+}
+
+nav ul li a::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    background: #41493B;
+    position: absolute;
+    left: 0;
+    bottom: -6px;
+    transition: 0.5s;
+}
+
+nav ul li a:hover::after {
+    width: 100%;
+}
+
+/*------About teacher ----*/
+
+.card-hover {
+    cursor: pointer;
+    transition: .5s;
+}
+.card-hover:hover {
+    transform: translateY(-6px);
+}
+
+
+
+
+/*-----For small Screens----*/
+
+nav .fa-solid {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    #header {
+        background-image: url(./images/phone-background.jpg);
+    }
+    .header-text {
+        margin-top: 100%;
+        font-size: 16px;
+    }
+    .header-text h1 {
+        font-size: 30px;
+    }
+    nav .fa-solid {
+        display: block;
+        font-size: 35px;
+    }
+    nav ul {
+        background: #262626;
+        position: fixed;
+        top: 0;
+        height: 100vh;
+        right: -200px;
+        width: 180px;
+        padding-top: 50px;
+        z-index: 2;
+        padding-right: 20px;
+        transition: 0.5s;
+    }
+    nav {
+        position: fixed;
+        top: 0;
+        z-index: 2;
+        width: 100%;
+        height: 50px;
+        background-color: #262626;
+        color: #fff;
+    }
+    nav ul li {
+
+        margin-right: 20px;
+    }
+    nav ul li a {
+        color: #fff;
+    }
+    nav ul .fa-solid {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        cursor: pointer;
+    }
+    .footer {
+        height: 100vh;
+        overflow: auto;
+    }
+    .left-text {
+        text-align: center;
+        font-size: 30px;
+    }
+
+}

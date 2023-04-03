@@ -14,7 +14,7 @@ copy_button.addEventListener("click", function() {
         parent_element.appendChild(message);
         setTimeout(() => {
             parent_element.removeChild(message);
-        }, 2000);
+        }, 3000);
     })
     .catch(error => {
         console.error("Failed to copy text: ", error);

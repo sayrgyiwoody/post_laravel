@@ -6,12 +6,14 @@ use view;
 use Storage;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class PostController extends Controller
 {
     //show data to user
     public function create() {
+        // dd(Auth::user()->toArray());
         $posts = Post::when(request('searchKey'),function($query){
             $key = request('searchKey');
             $query->orWhere('title','like','%'.$key.'%')
@@ -29,9 +31,9 @@ class PostController extends Controller
         $data = $this->getData($request);
 
 
-        if ($request->hasFile('userImage')) {
-            $imageName = uniqid().'_ucsy_img_'.$request->file('userImage')->getClientOriginalName();
-            $request->file('userImage')->storeAs('public',$imageName);
+        if ($request->hasFile('adminImage')) {
+            $imageName = uniqid().'_ucsy_img_'.$request->file('adminImage')->getClientOriginalName();
+            $request->file('adminImage')->storeAs('public',$imageName);
             $data['image'] = $imageName;
         }
 
@@ -48,6 +50,11 @@ class PostController extends Controller
 
     //delete post
     public function delete($id) {
+        $post = Post::where('id',$id)->first();
+        $deleteImage = $post->image;
+        if($deleteImage != null) {
+            Storage::delete('public/'.$deleteImage);
+        }
         Post::where('id',$id)->delete();
         return back()->with(['deleteAlert'=>' ဖျက်ခြင်းအောင်မြင်ပါသည်။']);
     }
@@ -63,7 +70,7 @@ class PostController extends Controller
     public function updateData(Request $request,$id) {
         $this->validationCheck($request,$id);
         $updateData = $this->getData($request);
-        if ($request->hasFile('userImage')) {
+        if ($request->hasFile('adminImage')) {
             $oldImageName = Post::select('image')->where('id',$id)->first()->toArray();
             $oldImageName =$oldImageName['image'];
 
@@ -71,33 +78,33 @@ class PostController extends Controller
                 Storage::delete('public/'.$oldImageName);
             }
 
-            $imageName = uniqid().'_ucsy_img_'.$request->file('userImage')->getClientOriginalName();
-            $request->file('userImage')->storeAs('public',$imageName);
+            $imageName = uniqid().'_ucsy_img_'.$request->file('adminImage')->getClientOriginalName();
+            $request->file('adminImage')->storeAs('public',$imageName);
             $updateData['image'] = $imageName;
         }
         Post::where('id',$id)->update($updateData);
-        return redirect()->route('user#home')->with(['updateAlert'=>' ပြင်ဆင်ခြင်း အောင်မြင်ပါသည်။']);
+        return redirect()->route('admin#home')->with(['updateAlert'=>' ပြင်ဆင်ခြင်း အောင်မြင်ပါသည်။']);
     }
 
     //check data validate for post create and update
 
     private function validationCheck($request,$id=0) {
         $validationRule = [
-            'userName' => 'required|max:30|min:3',
-            'userTitle' => 'required|max:50|unique:posts,title,'.$id,
-            'userImage' => 'mimes:jpg,jpeg,png',
-            'userDescription' => 'required'
+            'adminName' => 'required|max:30|min:3',
+            'adminTitle' => 'required|max:50|unique:posts,title,'.$id,
+            'adminImage' => 'mimes:jpg,JPG,jpeg,png',
+            'adminDescription' => 'required'
         ];
 
         $validationMessage = [
-            'userName.required'=> 'အမည် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
-            'userName.min' => 'စာလုံးရေ လိုနေပါသည်။ အမည် အနည်းဆုံး ၃ လုံး ရှိရပါမည်။',
-            'userName.max' => 'စာလုံးရေ ပိုနေပါသည်။အမည် အများဆုံး ၃၀ လုံး ဖြစ်ရပါမည်။',
-            'userTitle.required' => 'ခေါင်းစဉ် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
-            'userTitle.max' => 'စာလုံးရေ ပိုနေပါသည်။အမည် အများဆုံး ၅၀ လုံး ဖြစ်ရပါမည်။',
-            'userTitle.unique' => 'ခေါင်းစဉ် တူနေပါသည်။',
-            'userImage.mimes' => 'ပုံသည် jpg, jpeg, png ဖြစ်ရပါမည်။',
-            'userDescription.required' => 'အကြောင်းအရာ ထည့်သွင်းရန် လိုအပ်ပါသည်။'
+            'adminName.required'=> 'အမည် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'adminName.min' => 'စာလုံးရေ လိုနေပါသည်။ အမည် အနည်းဆုံး ၃ လုံး ရှိရပါမည်။',
+            'adminName.max' => 'စာလုံးရေ ပိုနေပါသည်။အမည် အများဆုံး ၃၀ လုံး ဖြစ်ရပါမည်။',
+            'adminTitle.required' => 'ခေါင်းစဉ် ထည့်သွင်းရန် လိုအပ်ပါသည်။',
+            'adminTitle.max' => 'စာလုံးရေ ပိုနေပါသည်။အမည် အများဆုံး ၅၀ လုံး ဖြစ်ရပါမည်။',
+            'adminTitle.unique' => 'ခေါင်းစဉ် တူနေပါသည်။',
+            'adminImage.mimes' => 'ပုံသည် jpg, jpeg, png ဖြစ်ရပါမည်။',
+            'adminDescription.required' => 'အကြောင်းအရာ ထည့်သွင်းရန် လိုအပ်ပါသည်။'
         ];
 
         Validator::make($request->all(),$validationRule,$validationMessage)->validate();
@@ -106,9 +113,9 @@ class PostController extends Controller
     //get data from input
     private function getData($request) {
         return [
-            'name' => $request->userName,
-            'title' => $request->userTitle,
-            'description' => $request->userDescription
+            'name' => $request->adminName,
+            'title' => $request->adminTitle,
+            'description' => $request->adminDescription
         ];
     }
 }

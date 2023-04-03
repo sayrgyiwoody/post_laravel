@@ -14,21 +14,33 @@ use App\Http\Controllers\PostController;
 |
 */
 
-Route::get('/',[PostController::class,'create'])->name('user#home');
+// Route::get('/',[PostController::class,'create'])->name('admin#home');
+Route::get('/', function () {
+    return view('welcome');
+});
 
 
-Route::get('user/home',[PostController::class,'create'])->name('user#createPage');
 
 
-Route::post('post/create',[PostController::class,'postCreate'])->name('user#create');
+Route::middleware([
+    'auth:sanctum',
+    config('jetstream.auth_session'),
+    'verified'
+])->group(function () {
+    Route::get('/dashboard',[PostController::class,'create'])->name('dashboard');
+
+    Route::group(['middleware'=>'post_middleware'],function(){
+        Route::post('post/create',[PostController::class,'postCreate'])->name('admin#create');
+        Route::get('post/delete/{id}',[PostController::class,'delete'])->name('admin#delete');
+        Route::get('post/update/{id}',[PostController::class,'update'])->name('admin#update');
+        Route::post('post/updateData/{id}',[PostController::class,'updateData'])->name('admin#updateData');
+    });
+
+    //which user can dos
+    Route::get('post/viewPage/{id}',[PostController::class,'view'])->name('admin#view');//view all data
+    Route::get('admin/home',[PostController::class,'create'])->name('admin#home');//for search bar
+
+});
 
 
-Route::get('post/delete/{id}',[PostController::class,'delete'])->name('user#delete');
 
-
-Route::get('post/update/{id}',[PostController::class,'update'])->name('user#update');
-
-Route::post('post/updateData/{id}',[PostController::class,'updateData'])->name('user#updateData');
-
-
-Route::get('post/viewPage/{id}',[PostController::class,'view'])->name('user#view');

@@ -24,10 +24,10 @@
                 <img src="https://st4.depositphotos.com/17828278/24401/v/600/depositphotos_244011872-stock-illustration-image-vector-symbol-missing-available.jpg" class="img-thumbnail"/>
             @endif
             <div class="card-body">
-                <textarea name="" class="form-control border-0" id="copy-text" cols="30" rows="3" readonly>{{$post['description']}}</textarea>
+                <p style=" white-space: pre-wrap;"  class="" id="copy-text">{{$post['description']}}</p>
                 <hr/>
                 <div class="d-flex justify-content-between">
-                    <a href="{{route('user#home')}}" class="btn btn-secondary px-3"><i class="fa-solid fa-arrow-left"></i>Back</a>
+                    <a href="{{route('admin#home')}}" class="btn btn-secondary px-3"><i class="fa-solid fa-arrow-left"></i>Back</a>
                     <div class="copy-message"></div>
                 </div>
             </div>
