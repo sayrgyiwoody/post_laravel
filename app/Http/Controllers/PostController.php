@@ -118,6 +118,14 @@ class PostController extends Controller
             'description' => $request->adminDescription
         ];
     }
+
+
+    //Direct to welcome page
+
+    public function welcome() {
+        $post = Post::orderBy('created_at','desc')->get();
+        return view('welcome',compact('post'));
+    }
 }
 
 

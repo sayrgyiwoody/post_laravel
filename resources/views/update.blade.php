@@ -37,7 +37,7 @@
                     <button type="submit" class="btn btn-dark mt-3" style="width: 100%">
                         Update
                     </button>
-                    <a href="{{route('admin#home')}}" class="text-decoration-none btn btn-outline-dark mt-3 " style="width: 100%;transition:.5s">Back to Home Page</a>
+                    <a href="{{route('admin#home')}}" class="text-decoration-none btn btn-outline-dark my-3 " style="width: 100%;transition:.5s">Back to Home Page</a>
                 </form>
             </div>
         </div>

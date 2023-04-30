@@ -58,7 +58,7 @@
                     @csrf
                     <div class="text-group">
                         <label for="adminName" class="my-2"><strong>Name :</strong></label>
-                        <input type="text"  name="adminName" class="form-control @error('adminName') is-invalid @enderror" placeholder="Enter Name" value="{{old('adminName')}}">
+                        <input type="text" disabled  name="adminName" class="form-control @error('adminName') is-invalid @enderror" placeholder="Enter Name" value="{{Auth::user()->name}}">
                         @error('adminName')
                             <small class="invalid-feedback">{{$message}}</small>
                         @enderror
@@ -109,7 +109,7 @@
                             <i class="fa-solid fa-calendar-day me-2"></i>{{$item->created_at->format('j-F-Y')}} |
                             <i class="fa-solid fa-clock me-2"></i>{{$item->created_at->format('h:i A')}}
                         </p>
-                        {{-- Here for image upload --}}
+                        {{-- Here for image upload to show --}}
                         @if ($item->image)
                             <img src="{{asset('storage/'.$item->image)}}" class="img-thumbnail" alt="" />
                         @endif
@@ -140,4 +140,12 @@
         </div>
     </div>
 
+    @if (Session::has('registerAlert'))
+    <script>
+        Swal("Register Success","{{Session::get('registerAlert')}}","success",{
+            button:true,
+            Button:"ok",
+        });
+    </script>
+    @endif
     @endsection

@@ -20,12 +20,12 @@
 <body>
     <div class="container-fluid d-flex justify-content-center align-items-center" style="height:100vh; background-color:#ECF2FF;">
         <div class="row align-items-center" >
-            <div class="box-1 col-6 bg-light d-flex justify-content-center d-none d-lg-block" style="border-radius:15px; width:300px; height:300px;">
+            <div class="box-1-register col-6 bg-light d-flex justify-content-center d-none d-lg-block" style="border-radius:15px; width:300px; height:300px;">
                 <div class="img-div">
-                <h5 class="img-header mt-3 mb-0 fw-bold">Register Here</h5>
-                <div class="img-container ">
+                <h5 class="img-header text-white mt-3 mb-0 fw-bold">Register Here</h5>
+                {{-- <div class="img-container ">
                     <img class="w-100" src="https://raw.githubusercontent.com/Sayrgyiwoody/Mini-Login-via-code-lab/main/img/register.png">
-                </div>
+                </div> --}}
                 </div>
             </div>
             <div class="box-2 col-4" style="width:250px; border-radius:15px; background-color:#1b263b;">

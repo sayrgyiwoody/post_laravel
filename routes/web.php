@@ -15,11 +15,12 @@ use App\Http\Controllers\PostController;
 */
 
 // Route::get('/',[PostController::class,'create'])->name('admin#home');
-Route::get('/', function () {
-    return view('welcome');
-});
 
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
+Route::get('/',[PostController::class,'welcome'])->name('welcome');
 
 
 Route::middleware([
@@ -39,6 +40,7 @@ Route::middleware([
     //which user can dos
     Route::get('post/viewPage/{id}',[PostController::class,'view'])->name('admin#view');//view all data
     Route::get('admin/home',[PostController::class,'create'])->name('admin#home');//for search bar
+
 
 });
 

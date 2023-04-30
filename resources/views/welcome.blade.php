@@ -28,6 +28,13 @@
         rel="stylesheet">
 </head>
 
+<style>
+    ::-webkit-scrollbar {
+    width: 0;
+}
+
+</style>
+
 <body style="background-color: #e7e7e7;">
     <div class="container-fluid px-0">
         <!--body-->
@@ -84,32 +91,31 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-9 d-lg-flex d-sm-block ">
-                            @for ($i=0;$i<4;$i++)
+                        <div class="col-lg-9 d-lg-flex d-sm-block overflow-auto ">
+                            @foreach ($post as $p)
                             <div class="card-box d-flex justify-content-center ms-3 mt-4 my-3">
                                 <div class="card shadow rounded border-0">
                                     <h5 class="card-title mt-4 fw-bold ms-3">
-                                        <span class="me-2 border-left ps-1">Card Title</span>
+                                        <span class="me-2 border-left ps-1">{{$p->title}}</span>
                                     </h5>
                                     <p class="card-title ps-3 text-muted" style="font-size: 14px">
-                                        28/11/2022
+                                        {{$p->created_at->format('F/j/Y')}}
                                     </p>
                                     <div class="card-body pt-0">
-                                        <p class="card-text">
-                                            Some quick example text to build on the card title and make up
-                                            the bulk of the card's content.
+                                        <p class="card-text" style="width:17rem;">
+                                            {{Str::words($p->description,10,".....")}}
                                         </p>
                                         <hr />
                                         <div class="d-flex justify-content-between align-items-center">
                                             <button type="button" class="btn btn-secondary"><a
                                                     class="text-decoration-none text-light"
-                                                    href="#">See More</a></button>
+                                                    href="/login">See More</a></button>
                                             <div><small class="text-muted">9-mins</small></div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            @endfor
+                            @endforeach
                         </div>
                     </div>
                 </div>
